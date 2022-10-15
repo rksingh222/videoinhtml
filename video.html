@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        .header{
+            font-size: 34px;
+            text-align: center;
+            color: #686868;
+        }
+        .container {
+            height: 100%;
+            width: 100%;
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 15px;
+            border: 1px solid black;
+            padding: 5px 5%;
+
+        }
+
+        .container .main-video {
+            padding: 10px;
+            border-radius: 5px;
+            background: #fff;
+            border: 3px solid red;
+        }
+
+        .container .main-video video {
+            width: 100%;
+            border-radius: 5px;
+        }
+
+        .container .main-video .title {
+            color: #333;
+            padding-top: 15px;
+            padding-bottom: 15px;
+            font-size: 23px;
+        }
+
+        .container .video-list {
+            border: 3px solid orange;
+            background: #fff;
+            border-radius: 5px;
+            height: 520px;
+            overflow-y: scroll;
+        }
+
+        .container .video-list::-webkit-scrollbar {
+            width: 7px;
+        }
+
+        .container .video-list::-webkit-scrollbar-track {
+            background: #ccc;
+            border-radius: 50px;
+        }
+
+        .container .video-list::-webkit-scrollbar-thumb {
+            background: #666;
+            border-radius: 50px;
+        }
+
+        .container .video-list .vid video {
+            width: 100px;
+            border-radius: 5px;
+        }
+
+        .container .video-list .vid {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin: 10px;
+            padding: 10px;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            background: #f7f7f7;
+            cursor: pointer;
+        }
+
+        .container .video-list .vid:hover {
+            background: #eee;
+        }
+
+        .container .video-list .vid.active {
+            background: #2980b9;
+        }
+
+        .container .video-list .vid.active .title {
+            color: #fff;
+        }
+
+        .container .video-list .vid .title {
+            color: #333;
+            font-size: 17px;
+        }
+
+        @media screen and (max-width:991px) {
+            .container {
+                grid-template-columns: 1.5fr 1fr;
+            }
+        }
+
+        @media screen and (max-width:768px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <h3 class="header">Video List</h3>
+    <div class="container">
+        <div class="main-video">
+            <div class="video">
+                <video controls muted src="gladiator.mp4">
+                </video>
+                <h4 class="title">1. gladiator fighter</h4>
+            </div>
+        </div>
+        <div class="video-list">
+            <div class="vid active">
+                <video muted src="gladiator.mp4">
+                </video>
+                <h4 class="title">1. gladiator fighter</h4>
+            </div>
+            <div class="vid">
+                <video muted src="dad.mp4">
+                </video>
+                <h4 class="title">2. Lets unite</h4>
+            </div>
+            <div class="vid">
+                <video muted src="babytype.mp4">
+                </video>
+                <h4 class="title">3. baby using computer</h4>
+            </div>
+            <div class="vid">
+                <video muted src="trolley.mp4">
+                </video>
+                <h4 class="title">4. boy carrying lottery</h4>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let mainVideo = document.querySelector(".main-video video");
+        let mainTitleVideo = document.querySelector(".main-video .title");
+        let listVideo = document.querySelectorAll(".video-list .vid");
+
+        listVideo.forEach(video => {
+            video.onclick = () => {
+                listVideo.forEach(vid => vid.classList.remove("active"));
+                video.classList.add("active");
+                let src = video.children[0].getAttribute("src");
+                mainVideo.src = src;
+                let title = video.children[1].innerHTML;
+                mainTitleVideo.innerHTML = title;
+            }
+        })
+        /*listVideo.forEach(video =>{
+            video.addEventListener("click",function(){
+                listVideo.forEach(vid => vid.classList.remove("active"));
+                video.classList.add("active");
+                let src = video.children[0].getAttribute("src");
+                mainVideo.src = src;
+            })
+        })*/
+    </script>
+</body>
+
+</html>
